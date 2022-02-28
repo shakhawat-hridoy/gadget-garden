@@ -3,20 +3,32 @@ console.log('abc');
 const loadPhone = () =>{
     fetch('https://openapi.programming-hero.com/api/phones?search=iphone')
     .then(response=>response.json())
-    .then(data=>showPhone(data))
+    .then(phoneList=>showPhone(phoneList.data))
 }
 
 //loadPhone();
 
-const showPhone= (data) =>{
-    // console.log(data);
-    console.log(data.data[0].brand);
+const showPhone= (phones) =>{
+    console.log(phones);
+    console.log(phones[0].brand);
 
-    const div = document.getElementById('search-result');
+    for(phone of phones){
+        const div = document.getElementById('my-card');
 
-    const p = document.createElement('p');
-    p.innerText = `Name of the phone is: ${data.data[0].brand}`;
+    const cardDiv = document.createElement('div');
+    cardDiv.innerHTML = 
+    `
+    <div class="col">
+      <div class="card">
+        <img src=${phone.image} class="card-img-top" alt="">
 
-    div.appendChild(p);
+        <div class="card-body">
+            <h5 class="card-title">Model: ${phone.phone_name}</h5>
+            <h3>Brand: ${phone.brand}</h3>
+        </div>
+      </div>
+    </div> `;
+    div.appendChild(cardDiv);
+    }
+
 }
-
