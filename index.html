@@ -20,10 +20,15 @@
     <main>
         <div class="align-middle">
             <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Find your phone here..</label>
-                <input type="password" class="form-control" id="exampleInputPassword1">
+                <label class="form-label">Find your phone here..</label>
+                <input class="form-control" id="exampleInputPassword1">
               </div>
-              <button type="submit" class="btn btn-primary align-middle">Search</button>
+
+              <button onclick="loadPhone()" id="search-button" type="" class="btn btn-primary align-middle">Search</button>
+        </div>
+
+        <div id="search-result">
+
         </div>
     </main>
 
