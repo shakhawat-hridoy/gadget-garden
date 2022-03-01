@@ -5,10 +5,11 @@ const phoneInput=()=>{
 
   //load searched result
   loadPhone(universalBrandName);
+  document.getElementById('spinner').style.display = "block";
+  document.getElementById('not-found').style.display = "none";
 
   // clear old field 
   document.getElementById('input-brand').value='';
-
   document.getElementById('phone-details').innerHTML='';
 }
 
@@ -19,10 +20,10 @@ const loadPhone = (searchText) =>{
     .then(response=>response.json())
     .then(phoneList=>showPhone(phoneList.data))
 }
-//loadPhone();
 
 //Show available phones
 const showPhone= (phoneList) =>{
+  document.getElementById('spinner').style.display = "none";
   const div = document.getElementById('my-card');
    //clear the previously displayed result
    div.innerHTML='';
@@ -41,7 +42,7 @@ const showPhone= (phoneList) =>{
       `
       <div class="my-4 col">
         <div class="card shadow rounded-3 m-4 p-4">
-          <img class="w-50 h-50" src=${phone.image} class="card-img-top" alt="">
+          <img class="h-50 w-50" src=${phone.image} class="card-img-top" alt="">
           <div class="card-body">
               <h3 class="card-title">Model: ${phone.phone_name}</h3>
               <h5>Brand: ${phone.brand}</h5>
@@ -61,6 +62,7 @@ const showPhone= (phoneList) =>{
     } 
   }
     else{
+      document.getElementById('collection').style.display = "none";
       document.getElementById('not-found').style.display = "block";
     }
 }
@@ -68,6 +70,7 @@ const showPhone= (phoneList) =>{
 //Select ome phone from the card
 const selectPhone=(id)=>{
   document.getElementById('phone-details').innerHTML='';
+  document.getElementById('spinner').style.display = "block";
   fetch(`https://openapi.programming-hero.com/api/phone/${id}`)
   .then(response=>response.json())
   .then(onePhone=>showDetails(onePhone.data))
@@ -75,14 +78,22 @@ const selectPhone=(id)=>{
 
 //Show the details of one specific phone
 const showDetails=(phoneSpecifications)=>{
+  document.getElementById('spinner').style.display = "none";
   const parenttDiv= document.getElementById('phone-details');
   const childDiv= document.createElement('div');
-  
+
+  if(phoneSpecifications.releaseDate == undefined){
+    const releaseDate= "No release date found";
+  }
+  else{
+    releaseDate=phoneSpecifications.releaseDate;
+  }
+
   //dynamic details window
   childDiv.innerHTML=
-  `<img class="h-50 w-50 mb-4" src=${phoneSpecifications.image}></img>
+  `<img class="img-fluid mb-4" src=${phoneSpecifications.image}></img>
   <p><strong>${phoneSpecifications.slug}</strong></p>
-  <p><strong>Release date:</strong> ${phoneSpecifications?.releaseDate}</p>
+  <p><strong>Release date:</strong>${releaseDate}</p>
 
   <p><b>Basic features:</b></p>
   <p><strong>Chipset:</strong> ${phoneSpecifications.mainFeatures.chipSet}</p>

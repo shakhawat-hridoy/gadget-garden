@@ -4,6 +4,9 @@
 #collection {
   display: none;
 }
+#spinner {
+  display: none;
+}
 .btn {
   background-color: rgb(158, 61, 61);
   border: 0;
@@ -16,6 +19,3 @@
 .headline {
   color: rgb(158, 61, 61);
 }
-/* #one-card {
-  display: none;
-} */
