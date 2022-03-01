@@ -20,22 +20,28 @@
     <!-- input id id="exampleInputPassword1" -->
 
     <main>
-        <div class="align-middle">
-            <div class="mb-3">
-                <label class="form-label">Find your phone here..</label>
-                <input id="input-brand" class="form-control" >
-              </div>
+        <!-- Search area  -->
+        <section>
+            <div class="align-middle">
+                <div class="mb-3">
+                    <label class="form-label">Find your phone here..</label>
+                    <input id="input-brand" class="form-control" >
+                  </div>
+    
+                  <button onclick="phoneInput()" id="search-button" type="" class="btn btn-primary align-middle">Search</button>
+            </div>
+        </section>
+        <!-- Search area  -->
 
-              <button onclick="phoneInput()" id="search-button" type="" class="btn btn-primary align-middle">Search</button>
+        <!-- product details  -->
+        <div class="row row-cols-1 g-4" id="phone-details">
         </div>
+        <!-- product details  -->
 
-        <div id="phone-details">
-
-        </div>
-
+        <!-- show available phones  -->
         <div class="row row-cols-1 row-cols-md-3 g-4" id="my-card">
-
         </div>
+        <!-- show available phones  -->
 
 
     </main>
