@@ -7,6 +7,7 @@ const phoneInput=()=>{
   loadPhone(universalBrandName);
   document.getElementById('spinner').style.display = "block";
   document.getElementById('not-found').style.display = "none";
+  document.getElementById('collection').style.display = "none";
 
   // clear old field 
   document.getElementById('input-brand').value='';
