@@ -107,4 +107,5 @@ const showDetails=(phoneSpecifications)=>{
   <p><strong>GPS: </strong>${phoneSpecifications.others.GPS}</p>
   <p><strong>WLAN: </strong>${phoneSpecifications.others.WLAN}</p> `;
   parenttDiv.appendChild(childDiv);
+  window.scrollTo(0,300);
 }
