@@ -6,8 +6,10 @@ const phoneInput=()=>{
   //load searched result
   loadPhone(universalBrandName);
 
-  // clear search field 
+  // clear old field 
   document.getElementById('input-brand').value='';
+
+  document.getElementById('phone-details').innerHTML='';
 }
 
 //Bring requested phones by brand
@@ -26,44 +28,46 @@ const showPhone= (phoneList) =>{
    div.innerHTML='';
 
   if(phoneList.length!==0){
-    const functry=(phones)=>{
-      console.log(phones.length);
+    const setInnerHtml=(phones)=>{
+      document.getElementById('not-found').style.display = "none";
+      document.getElementById('collection').style.display = "block";
+
       for(phone of phones){
         phoneId= phone.slug;
-      
       const cardDiv = document.createElement('div');
     
       //dynamic card generation
       cardDiv.innerHTML = 
       `
-      <div class="col">
-        <div class="card p-4">
-          <img class="w-25 h-25" src=${phone.image} class="card-img-top" alt="">
+      <div class="my-4 col">
+        <div class="card shadow rounded-3 m-4 p-4">
+          <img class="w-50 h-50" src=${phone.image} class="card-img-top" alt="">
           <div class="card-body">
               <h3 class="card-title">Model: ${phone.phone_name}</h3>
               <h5>Brand: ${phone.brand}</h5>
-              <button onclick="selectPhone('${phoneId}')" type="" class="btn btn-primary align-middle">Details2</button>
+              <button onclick="selectPhone('${phoneId}')" type="" class="btn align-middle">Show Details</button>
           </div>
         </div>
       </div> `;
       div.appendChild(cardDiv);
       }
     }
-    console.log(phoneList.length);
     if(phoneList.length<=20){
-      functry(phoneList);
+      document.getElementById('collection').style.display = "block";
+      setInnerHtml(phoneList);
     }
     else{
-      functry(phoneList.slice(0,20));
+      setInnerHtml(phoneList.slice(0,20));
     } 
   }
     else{
-      alert('no phone found');
+      document.getElementById('not-found').style.display = "block";
     }
 }
 
 //Select ome phone from the card
 const selectPhone=(id)=>{
+  document.getElementById('phone-details').innerHTML='';
   fetch(`https://openapi.programming-hero.com/api/phone/${id}`)
   .then(response=>response.json())
   .then(onePhone=>showDetails(onePhone.data))
@@ -73,24 +77,22 @@ const selectPhone=(id)=>{
 const showDetails=(phoneSpecifications)=>{
   const parenttDiv= document.getElementById('phone-details');
   const childDiv= document.createElement('div');
-
+  
   //dynamic details window
   childDiv.innerHTML=
-  `<img class="h-50 w-25" src=${phoneSpecifications.image}></img>
-  <p>Name of phone: ${phoneSpecifications.slug}</p>
+  `<img class="h-50 w-50 mb-4" src=${phoneSpecifications.image}></img>
+  <p><strong>${phoneSpecifications.slug}</strong></p>
+  <p><strong>Release date:</strong> ${phoneSpecifications?.releaseDate}</p>
 
   <p><b>Basic features:</b></p>
   <p><strong>Chipset:</strong> ${phoneSpecifications.mainFeatures.chipSet}</p>
   <p><strong>Storage:</strong> ${phoneSpecifications.mainFeatures.storage}</p>
   <p><strong>Display:</strong> ${phoneSpecifications.mainFeatures.displaySize}</p>
   <p><strong>Sensors:</strong>${phoneSpecifications.mainFeatures.sensors}</p>   
-  <p><strong>Release date:</strong> ${phoneSpecifications?.releaseDate}</p>
 
   <p><b>Other info:</b></p>
   <p><strong>Bluetooth: </strong>${phoneSpecifications.others.Bluetooth}</p>
   <p><strong>GPS: </strong>${phoneSpecifications.others.GPS}</p>
-  <p><strong>WLAN: </strong>${phoneSpecifications.others.WLAN}</p>
-
-  `;
+  <p><strong>WLAN: </strong>${phoneSpecifications.others.WLAN}</p> `;
   parenttDiv.appendChild(childDiv);
 }

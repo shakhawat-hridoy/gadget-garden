@@ -1,0 +1,21 @@
+#not-found {
+  display: none;
+}
+#collection {
+  display: none;
+}
+.btn {
+  background-color: rgb(158, 61, 61);
+  border: 0;
+  color: white;
+  font-weight: bold;
+}
+.card {
+  background-color: rgb(240, 239, 238);
+}
+.headline {
+  color: rgb(158, 61, 61);
+}
+/* #one-card {
+  display: none;
+} */
